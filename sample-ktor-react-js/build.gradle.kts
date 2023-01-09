@@ -1,19 +1,62 @@
+import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpackConfig.Mode
+
+
 plugins {
     id("org.jetbrains.kotlin.js")
 }
 
+//// https://gist.github.com/CameronProbert/85b7d60fa9572d93566f5c5ee62441e0
+//
+//val buildModeArg = (project.findProperty("buildMode") as String?)?.toUpperCase()
+//val buildMode = when (buildModeArg) {
+//    null, "DEBUG" -> DEVELOPMENT
+//    "RELEASE" -> PRODUCTION
+//    else -> throw Exception("Invalid buildMode: '$buildModeArg'. Expected 'DEBUG' or 'RELEASE'.")
+//}
+//
+//val envTargetArg = (project.findProperty("envTarget") as String?)?.toUpperCase()
+//val envTarget = when (envTargetArg) {
+//    "DEV", "PROD" -> envTargetArg
+//    null -> "DEV"
+//    else -> throw Exception("Invalid envTarget: '$envTargetArg'. Expected 'DEV' or 'PROD'.")
+//}
+//
+//logger.lifecycle("Building with buildMode = $buildMode and envTarget = $envTarget")
+
+val devMode = properties.containsKey("jsWatch")
 
 kotlin {
-//    target {
     js {
         useCommonJs()
 
         binaries.executable()
 
         browser {
-            webpackTask {
+            // https://discuss.kotlinlang.org/t/kotlin-js-gradle-webpack-arguments/21376
+            // https://discuss.kotlinlang.org/t/kotlin-js-react-accessing-configuring-environment-variables/16906/9
+            // https://github.com/webpack/webpack-cli/issues/1934
 
+            val webpackMode =
+                if (devMode) {
+                    Mode.DEVELOPMENT
+                }
+                else {
+                    Mode.PRODUCTION
+                }
+
+            commonWebpackConfig {
+                mode = webpackMode
             }
+
+//            webpackTask {
+////                args += listOf("--mode", mode)
+//                val additionalArgs = listOf("--mode", webpackMode.code)
+////                args += additionalArgs
+//                args.plusAssign(additionalArgs)
+//                if (devMode) {
+//                    println("!! js watch mode")
+//                }
+//            }
         }
     }
 }
@@ -22,69 +65,13 @@ kotlin {
 dependencies {
     implementation(project(":sample-ktor-react-common"))
 
-//    implementation(npm("core-js", coreJsVersion))
-//    implementation("org.jetbrains.kotlinx:kotlinx-html-assembly:$kotlinxHtmlVersion")
-
     implementation("org.jetbrains.kotlin-wrappers:kotlin-react:$kotlinReactVersion")
-//    implementation("org.jetbrains.kotlin-wrappers:kotlin-react-legacy:$kotlinReactVersion")
     implementation("org.jetbrains.kotlin-wrappers:kotlin-react-dom:$kotlinReactDomVersion")
-//    implementation("org.jetbrains.kotlin-wrappers:kotlin-react-dom-legacy:$kotlinReactDomVersion")
     implementation("org.jetbrains.kotlin-wrappers:kotlin-emotion:$kotlinEmotionVersion")
-//    implementation("org.jetbrains.kotlin-wrappers:kotlin-browser:$kotlinBrowserVersion")
 
-
-//    implementation("org.jetbrains.kotlin-wrappers:kotlin-styled:$kotlinStyledVersion")
-//    implementation("org.jetbrains.kotlin-wrappers:kotlin-extensions:$kotlinExtensionsVersion")
-//    implementation("org.jetbrains.kotlin-wrappers:kotlin-css-js:$kotlinCssVersion")
-//    implementation(npm("react", reactVersion))
-//    implementation(npm("react-dom", reactVersion))
-//    implementation(npm("react-is", reactVersion))
-//    implementation(npm("inline-style-prefixer", inlineStylePrefixerVersion))
-//    implementation(npm("styled-components", styledComponentsVersion))
     testImplementation(kotlin("test"))
-//    testImplementation(npm("enzyme", "3.11.0"))
-//    testImplementation(npm("enzyme-adapter-react-16", "1.12.1"))
-
-//    implementation(npm("@mui/material", muiMaterialVersion))
-//    implementation(npm("@mui/icons-material", muiIconsVersion))
-//    implementation(npm("@mui/styles", muiStylesVersion))
-//    implementation(npm("@emotion/styled", emotionStyledVersion))
-//    implementation(npm("@emotion/react", emotionReactVersion))
-//    implementation(npm("@material-ui/core", materialUiCoreVersion))
-//    implementation(npm("@material-ui/icons", materialUiIconsVersion))
-//    implementation(npm("@material-ui/lab", materialUiLabVersion))
-
-//    implementation("io.github.alexoooo.sample.lib:lib-common-js:$libVersion")
-//    implementation("io.github.alexoooo.sample.lib:lib-js:$libVersion")
 }
-
-
-//configurations.implementation {
-////    exclude(group = "org.jetbrains.kotlin-wrappers", module = "kotlin-react-legacy")
-////    exclude(group = "org.jetbrains.kotlin-wrappers", module = "kotlin-react-dom-legacy")
-////    exclude(group = "org.jetbrains.kotlin-wrappers", module = "kotlin-react-dom")
-//}
-
-
-// https://youtrack.jetbrains.com/issue/KT-49124
-//rootProject.extensions.configure<org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootExtension> {
-//    versions.webpackCli.version = "4.9.0"
-//}
-
-//rootProject.plugins.withType<org.jetbrains.kotlin.gradle.targets.js.yarn.YarnPlugin> {
-//    rootProject.the<org.jetbrains.kotlin.gradle.targets.js.yarn.YarnRootExtension>().apply {
-//        resolution("@webpack-cli/serve", "1.6.1")
-//    }
-//}
 
 
 run {
-//    project(":proj-jvm").afterEvaluate {
-//        dependsOn project(":proj-jvm").tasks.getByName('prepareDevServer')
-//    }
 }
-
-
-//tasks.getByName("processDceKotlinJs") {
-//    enabled = false
-//}

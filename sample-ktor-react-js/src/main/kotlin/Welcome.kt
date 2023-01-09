@@ -21,7 +21,7 @@ val Welcome = FC<WelcomeProps> { props ->
             backgroundColor = rgb(8, 97, 22)
             color = rgb(56, 246, 137)
         }
-        +"Hello, $name! - 2134"
+        +"Hello, $name! - qqqqq"
         br {}
 
         TestComponent::class.react {}
