@@ -9,7 +9,7 @@ fun HTML.indexPage() {
     }
     body {
         div {
-            +"Hello from Ktor - 99999"
+            +"Hello from Ktor - bbbb"
         }
         div {
             id = "root"

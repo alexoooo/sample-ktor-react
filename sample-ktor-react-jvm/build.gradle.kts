@@ -42,16 +42,22 @@ dependencies {
 }
 
 
-//tasks.withType<ProcessResources> {
-//    val jsProject = project(":proj-js")
-//    val task = jsProject.tasks.getByName("browserProductionWebpack") as KotlinWebpack
-//
-//    from(task.destinationDirectory) {
-//        into("public")
-//    }
-//
-//    dependsOn(task)
-//}
+tasks.withType<ProcessResources> {
+//    println("^^^^ properties: " + properties.keys.toList().sorted())
+    if (properties.containsKey("skipJsToJvm")) {
+        println("! skip copy browserProductionWebpack to /static resources")
+        return@withType
+    }
+
+    val jsProject = project(":sample-ktor-react-js")
+    val task = jsProject.tasks.getByName("browserProductionWebpack") as org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpack
+
+    from(task.destinationDirectory) {
+        into("static")
+    }
+
+    dependsOn(task)
+}
 
 
 tasks.withType<KotlinCompile> {
@@ -65,25 +71,15 @@ tasks.compileJava {
     options.release.set(javaVersion)
 }
 
-//tasks.getByName<Jar>("jar") {
-//    enabled = true
-//}
+
+//tasks.register<ProcessResources>("copyBrowserProductionWebpack") {
+//    val jsProject = project(":sample-ktor-react-js")
+//    val task = jsProject.tasks.getByName("browserProductionWebpack") as org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpack
 //
-//tasks.getByName<BootJar>("bootJar") {
-//    archiveClassifier.set("boot")
+//    from(task.destinationDirectory) {
+//        into("static")
+//    }
+//
+//    dependsOn(task)
 //}
-
-
-tasks.withType<ProcessResources> {
-    val jsProject = project(":sample-ktor-react-js")
-    val task = jsProject.tasks.getByName("browserProductionWebpack") as org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpack
-//    val task = jsProject.tasks.getByName("jsBrowserDistribution")
-
-    from(task.destinationDirectory) {
-        into("static")
-    }
-//    from(task)
-
-    dependsOn(task)
-}
 

@@ -14,21 +14,22 @@ fun main() {
     embeddedServer(
         Netty,
         port = 8080,
-        host = "127.0.0.1",
-//        watchPaths = listOf(
-//            "classes",
-//            "resources"
-//        )
+        host = "127.0.0.1"
     ) {
-        println("developmentMode: " + environment.developmentMode)
-
-        routing {
-            get("/") {
-                call.respondHtml(HttpStatusCode.OK, HTML::indexPage)
-            }
-            static("/static") {
-                resources("static")
-            }
-        }
+        ktorMain()
     }.start(wait = true)
+}
+
+
+fun Application.ktorMain() {
+    println("developmentMode: " + environment.developmentMode)
+
+    routing {
+        get("/") {
+            call.respondHtml(HttpStatusCode.OK, HTML::indexPage)
+        }
+        static("/static") {
+            resources("static")
+        }
+    }
 }
