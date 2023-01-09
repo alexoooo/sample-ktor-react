@@ -1,5 +1,5 @@
-import csstype.px
-import csstype.rgb
+import csstype.*
+import emotion.css.css
 import emotion.react.css
 import js.core.Object.Companion.assign
 import js.core.jso
@@ -8,6 +8,11 @@ import react.dom.html.InputType
 import react.dom.html.ReactHTML.br
 import react.dom.html.ReactHTML.div
 import react.dom.html.ReactHTML.input
+import mui.material.Card
+import mui.material.CardContent
+import mui.material.Typography
+import mui.material.styles.TypographyVariant
+
 
 external interface WelcomeProps : Props {
     var name: String
@@ -15,13 +20,29 @@ external interface WelcomeProps : Props {
 
 val Welcome = FC<WelcomeProps> { props ->
     var name by useState(props.name)
+
+    Card {
+        style = jso {
+            backgroundColor = NamedColor.blue
+            margin = 1.em
+        }
+
+        CardContent {
+            Typography {
+                variant = TypographyVariant.h5
+                +"foooo"
+            }
+        }
+    }
+
+
     div {
         css {
             padding = 5.px
             backgroundColor = rgb(8, 97, 22)
             color = rgb(56, 246, 137)
         }
-        +"Hello, $name! - qqqqq"
+        +"Hello, $name!"
         br {}
 
         TestComponent::class.react {}

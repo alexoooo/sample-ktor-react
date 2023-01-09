@@ -68,6 +68,7 @@ dependencies {
     implementation("org.jetbrains.kotlin-wrappers:kotlin-react:$kotlinReactVersion")
     implementation("org.jetbrains.kotlin-wrappers:kotlin-react-dom:$kotlinReactDomVersion")
     implementation("org.jetbrains.kotlin-wrappers:kotlin-emotion:$kotlinEmotionVersion")
+    implementation("org.jetbrains.kotlin-wrappers:kotlin-mui:$kotlinMuiVersion")
 
     testImplementation(kotlin("test"))
 }
