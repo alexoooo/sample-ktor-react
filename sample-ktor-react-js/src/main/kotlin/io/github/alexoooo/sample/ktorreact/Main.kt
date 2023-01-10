@@ -1,0 +1,22 @@
+package io.github.alexoooo.sample.ktorreact
+
+import react.create
+import react.dom.client.createRoot
+import web.dom.document
+
+
+fun main() {
+    val rootElement = document.getElementById("root")
+        ?: throw IllegalStateException("'root' element not found")
+
+    // https://stackoverflow.com/questions/3450593/how-do-i-clear-the-content-of-a-div-using-javascript
+    while (rootElement.hasChildNodes()) {
+        rootElement.removeChild(rootElement.firstChild!!)
+    }
+
+    val welcome = Welcome.create {
+        name = "Ktor + React"
+    }
+
+    createRoot(rootElement).render(welcome)
+}

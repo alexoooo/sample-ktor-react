@@ -1,5 +1,8 @@
-package io.github.alexoooo.sample.ktorreact
+package io.github.alexoooo.sample.ktorreact.dev
 
+import io.github.alexoooo.sample.ktorreact.jsFileName
+import io.github.alexoooo.sample.ktorreact.jsResourcePath
+import io.github.alexoooo.sample.ktorreact.ktorMain
 import io.ktor.server.application.*
 import io.ktor.server.engine.*
 import io.ktor.server.netty.*
@@ -13,21 +16,16 @@ fun main() {
 
     val projectBaseDir = Path.of(".").toAbsolutePath().normalize()
     val jsDistDir = projectBaseDir.resolve("sample-ktor-react-js/build/distributions")
-    val jsFileName = "sample-ktor-react-js.js"
     val jsFile = jsDistDir.resolve(jsFileName).toFile()
-    println("jsFile: $jsFile ${jsFile.exists()}")
+    println("Auto-reload js file (exists = ${jsFile.exists()}): $jsFile")
 
     embeddedServer(
         Netty,
         port = 8080,
-        host = "127.0.0.1",
-        watchPaths = listOf(
-            "classes",
-            "resources"
-        )
+        host = "127.0.0.1"
     ) {
         routing {
-            get("/static/$jsFileName") {
+            get(jsResourcePath) {
                 call.respondFile(jsFile)
             }
         }

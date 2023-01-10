@@ -5,15 +5,18 @@ import kotlinx.html.*
 
 fun HTML.indexPage() {
     head {
-        title("Hello from Ktor!")
+        title("Sample : Ktor + React")
+        meta {
+            charset = "UTF-8"
+        }
+        script(src = jsResourcePath) {
+            defer = true
+        }
     }
     body {
         div {
-            +"Hello from Ktor - bbbb"
+            id = rootHtmlElementId
+            +"Loading..."
         }
-        div {
-            id = "root"
-        }
-        script(src = "/static/sample-ktor-react-js.js") {}
     }
 }
