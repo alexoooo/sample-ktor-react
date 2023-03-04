@@ -17,6 +17,8 @@ kotlin {
         browser {
             // https://discuss.kotlinlang.org/t/kotlin-js-gradle-webpack-arguments/21376
             // https://discuss.kotlinlang.org/t/kotlin-js-react-accessing-configuring-environment-variables/16906/9
+            // https://github.com/ktorio/ktor/issues/975
+            // https://stackoverflow.com/questions/72256084/how-to-enable-development-mode-in-embedded-server-to-use-auto-reload-in-ktor
 
             val webpackMode =
                 if (devMode) {

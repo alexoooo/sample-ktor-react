@@ -1,5 +1,4 @@
 @file:Suppress("ConstPropertyName")
-
 package io.github.alexoooo.sample.ktorreact
 
 import io.ktor.http.*

@@ -5,6 +5,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     kotlin("jvm")
+    id("io.ktor.plugin") version ktorVersion
 }
 
 
@@ -17,6 +18,11 @@ kotlin {
 
 tasks.compileJava {
     options.release.set(javaVersion)
+}
+
+
+application {
+    mainClass.set("io.github.alexoooo.sample.ktorreact.ApplicationKt")
 }
 
 
@@ -36,16 +42,11 @@ dependencies {
 
 
 tasks.withType<ProcessResources> {
-//    println("^^^^ properties: " + properties.keys.toList().sorted())
-    if (properties.containsKey("skipJsToJvm")) {
-        println("! skip copy browserProductionWebpack to /static resources")
-        return@withType
-    }
-
     val jsProject = project(":sample-ktor-react-js")
     val task = jsProject.tasks.getByName("browserProductionWebpack") as org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpack
 
     from(task.destinationDirectory) {
+        // NB: referenced in webserver application resources
         into("static")
     }
 

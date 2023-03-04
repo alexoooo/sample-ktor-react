@@ -14,8 +14,7 @@ fun main() {
         host = "127.0.0.1",
         watchPaths = listOf(
             "classes",
-            "resources"
-        )
+            "resources")
     ) {
         ktorMain()
     }.start(wait = true)
