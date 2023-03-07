@@ -6,9 +6,7 @@ import csstype.px
 import csstype.rgb
 import emotion.react.css
 import js.core.jso
-import mui.material.Card
-import mui.material.CardContent
-import mui.material.Typography
+import mui.material.*
 import mui.material.styles.TypographyVariant
 import react.*
 import web.html.InputType
@@ -16,7 +14,10 @@ import react.dom.html.ReactHTML.br
 import react.dom.html.ReactHTML.button
 import react.dom.html.ReactHTML.div
 import react.dom.html.ReactHTML.input
+import react.dom.onChange
 import web.html.HTMLElement
+import web.html.HTMLInputElement
+import web.html.HTMLTextAreaElement
 
 
 external interface WelcomeProps : Props {
@@ -52,6 +53,28 @@ val Welcome = FC<WelcomeProps> { props ->
 
         TestComponent::class.react {}
     }
+
+    val multilineOverride = true
+    TextField  {
+        fullWidth = true
+        multiline = multilineOverride
+        size = Size.small
+
+        label = ReactNode("Foo")
+        value = name
+
+        onChange = {
+            val value =
+                if (multilineOverride) {
+                    (it.target as HTMLTextAreaElement).value
+                }
+                else {
+                    (it.target as HTMLInputElement).value
+                }
+            name = value
+        }
+    }
+
     input {
         css {
             marginTop = 5.px
