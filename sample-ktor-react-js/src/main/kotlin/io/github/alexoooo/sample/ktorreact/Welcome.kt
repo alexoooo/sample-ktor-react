@@ -11,10 +11,12 @@ import mui.material.CardContent
 import mui.material.Typography
 import mui.material.styles.TypographyVariant
 import react.*
-import react.dom.html.InputType
+import web.html.InputType
 import react.dom.html.ReactHTML.br
+import react.dom.html.ReactHTML.button
 import react.dom.html.ReactHTML.div
 import react.dom.html.ReactHTML.input
+import web.html.HTMLElement
 
 
 external interface WelcomeProps : Props {
@@ -65,10 +67,22 @@ val Welcome = FC<WelcomeProps> { props ->
 }
 
 
-class TestComponent : RComponent<Props, State>() {
+class TestComponent : RPureComponent<Props, State>() {
+    private var inputRef: RefObject<HTMLElement> = createRef()
+
     override fun ChildrenBuilder.render() {
         div {
             +"Hello, world!"
+
+            input {
+                ref = inputRef
+            }
+            button {
+                onClick = {
+                    inputRef.current?.focus()
+                }
+                +"Focus the input"
+            }
         }
     }
 }

@@ -6,7 +6,7 @@ import web.dom.document
 
 
 fun main() {
-    val rootElement = document.getElementById("root")
+    val rootElement = document.getElementById(rootHtmlElementId)
         ?: throw IllegalStateException("'root' element not found")
 
     // https://stackoverflow.com/questions/3450593/how-do-i-clear-the-content-of-a-div-using-javascript
