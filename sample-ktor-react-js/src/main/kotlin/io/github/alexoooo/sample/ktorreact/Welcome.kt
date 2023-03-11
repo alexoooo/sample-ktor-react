@@ -24,6 +24,9 @@ external interface WelcomeProps : Props {
     var name: String
 }
 
+external interface WelcomeState : State {
+    var name: String
+}
 
 val Welcome = FC<WelcomeProps> { props ->
     var name by useState(props.name)
@@ -90,8 +93,13 @@ val Welcome = FC<WelcomeProps> { props ->
 }
 
 
-class TestComponent : RPureComponent<Props, State>() {
+class TestComponent : RPureComponent<Props, WelcomeState>() {
     private var inputRef: RefObject<HTMLElement> = createRef()
+
+
+    override fun WelcomeState.init() {
+        name = "bar"
+    }
 
     override fun ChildrenBuilder.render() {
         div {
@@ -99,6 +107,12 @@ class TestComponent : RPureComponent<Props, State>() {
 
             input {
                 ref = inputRef
+                value = state.name
+                onChange = {
+                    setState {
+                        name = it.target.value
+                    }
+                }
             }
             button {
                 onClick = {
