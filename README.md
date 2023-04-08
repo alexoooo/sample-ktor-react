@@ -15,3 +15,7 @@ To auto-reload frontend:
 To build self-contained jar and executable it from CLI:
 1) Run `./gradlew buildFatJar`
 2) Run `java -jar sample-ktor-react-jvm/build/libs/sample-ktor-react-jvm-all.jar`
+
+
+TODO:
+Run `./gradlew -t :sample-ktor-react-js:browserDevelopmentWebpack -x test -PjsWatch` from CLI
