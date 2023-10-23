@@ -15,7 +15,10 @@ fun main() {
     System.setProperty("io.ktor.development", "true")
 
     val projectBaseDir = Path.of(".").toAbsolutePath().normalize()
-    val jsDistDir = projectBaseDir.resolve("sample-ktor-react-js/build/distributions")
+
+    // NB: this would normally be auto-detected
+    val jsDistDir = projectBaseDir.resolve("sample-ktor-react-js/build/dist/js/productionExecutable")
+
     val jsFile = jsDistDir.resolve(jsFileName).toFile()
     println("Auto-reload js file (exists = ${jsFile.exists()}): $jsFile")
 

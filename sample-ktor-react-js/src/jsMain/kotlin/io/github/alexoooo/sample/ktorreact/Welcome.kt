@@ -1,13 +1,10 @@
 package io.github.alexoooo.sample.ktorreact
 
-import csstype.NamedColor
-import csstype.em
-import csstype.px
-import csstype.rgb
 import emotion.react.css
 import js.core.jso
 import mui.material.*
 import mui.material.styles.TypographyVariant
+import mui.system.sx
 import react.*
 import web.html.InputType
 import react.dom.html.ReactHTML.br
@@ -15,6 +12,10 @@ import react.dom.html.ReactHTML.button
 import react.dom.html.ReactHTML.div
 import react.dom.html.ReactHTML.input
 import react.dom.onChange
+import web.cssom.NamedColor
+import web.cssom.em
+import web.cssom.px
+import web.cssom.rgb
 import web.html.HTMLElement
 import web.html.HTMLInputElement
 import web.html.HTMLTextAreaElement
@@ -65,6 +66,10 @@ val Welcome = FC<WelcomeProps> { props ->
 
         label = ReactNode("Foo")
         value = name
+
+        sx {
+            marginTop = 1.em
+        }
 
         onChange = {
             val value =

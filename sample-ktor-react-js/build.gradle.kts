@@ -1,12 +1,14 @@
 import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpackConfig.Mode
+import org.jetbrains.kotlin.gradle.targets.js.yarn.yarn
 
 
 plugins {
-    id("org.jetbrains.kotlin.js")
+    kotlin("multiplatform")
 }
 
 
 val devMode = properties.containsKey("jsWatch")
+
 
 kotlin {
     js {
@@ -28,25 +30,35 @@ kotlin {
                     Mode.PRODUCTION
                 }
 
-            commonWebpackConfig {
+            commonWebpackConfig(Action {
                 mode = webpackMode
+            })
+        }
+    }
+
+    sourceSets {
+        val jsMain by getting {
+            dependencies {
+                implementation(project(":sample-ktor-react-common"))
+
+                implementation("org.jetbrains.kotlin-wrappers:kotlin-react:$kotlinReactVersion")
+                implementation("org.jetbrains.kotlin-wrappers:kotlin-react-dom:$kotlinReactDomVersion")
+                implementation("org.jetbrains.kotlin-wrappers:kotlin-emotion:$kotlinEmotionVersion")
+                implementation("org.jetbrains.kotlin-wrappers:kotlin-mui:$kotlinMuiVersion")
+            }
+        }
+
+        val jsTest by getting {
+            dependencies {
+                implementation(kotlin("test"))
             }
         }
     }
 }
 
 
-dependencies {
-    implementation(project(":sample-ktor-react-common"))
-
-    implementation("org.jetbrains.kotlin-wrappers:kotlin-react:$kotlinReactVersion")
-    implementation("org.jetbrains.kotlin-wrappers:kotlin-react-dom:$kotlinReactDomVersion")
-    implementation("org.jetbrains.kotlin-wrappers:kotlin-emotion:$kotlinEmotionVersion")
-    implementation("org.jetbrains.kotlin-wrappers:kotlin-mui:$kotlinMuiVersion")
-
-    testImplementation(kotlin("test"))
-}
+run {}
 
 
-run {
-}
+// https://youtrack.jetbrains.com/issue/KT-52578/KJS-Gradle-KotlinNpmInstallTask-gradle-task-produces-unsolvable-warning-ignored-scripts-due-to-flag.
+yarn.ignoreScripts = false

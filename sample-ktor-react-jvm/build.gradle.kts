@@ -1,4 +1,5 @@
 @file:Suppress("UnstableApiUsage")
+import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpack
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 
@@ -13,6 +14,7 @@ kotlin {
         languageVersion.set(JavaLanguageVersion.of(jvmToolchainVersion))
     }
 }
+
 
 
 tasks.compileJava {
@@ -42,14 +44,17 @@ dependencies {
 
 tasks.withType<ProcessResources> {
     val jsProject = project(":sample-ktor-react-js")
-    val task = jsProject.tasks.getByName("browserProductionWebpack") as org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpack
 
-    from(task.destinationDirectory) {
+    val browserDistributionTask = jsProject.tasks.getByName("jsBrowserDistribution")
+    dependsOn(browserDistributionTask)
+
+    val task = jsProject.tasks.getByName("jsBrowserProductionWebpack") as KotlinWebpack
+    dependsOn(task)
+
+    from(task.outputDirectory) {
         // NB: referenced in webserver application resources
         into("static")
     }
-
-    dependsOn(task)
 }
 
 

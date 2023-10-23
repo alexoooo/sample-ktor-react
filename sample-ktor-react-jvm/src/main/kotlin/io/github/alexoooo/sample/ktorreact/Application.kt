@@ -42,8 +42,7 @@ fun Application.ktorMain() {
         get(indexFilePath) {
             call.respondHtml(HttpStatusCode.OK, HTML::indexPage)
         }
-        static(staticResourcePath) {
-            resources(staticResourceName)
-        }
+
+        staticResources(staticResourcePath, staticResourceName)
     }
 }
