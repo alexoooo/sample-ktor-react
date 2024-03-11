@@ -1,7 +1,6 @@
 package io.github.alexoooo.sample.ktorreact
 
-import js.core.Object
-import js.core.jso
+import js.objects.jso
 import react.*
 
 

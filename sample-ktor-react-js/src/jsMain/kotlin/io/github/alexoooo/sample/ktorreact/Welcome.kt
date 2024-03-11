@@ -1,7 +1,7 @@
 package io.github.alexoooo.sample.ktorreact
 
 import emotion.react.css
-import js.core.jso
+import js.objects.jso
 import mui.material.*
 import mui.material.styles.TypographyVariant
 import mui.system.sx
@@ -34,7 +34,7 @@ val Welcome = FC<WelcomeProps> { props ->
 
     Card {
         style = jso {
-            backgroundColor = NamedColor.blue
+            backgroundColor = NamedColor.yellow
             margin = 1.em
         }
 
