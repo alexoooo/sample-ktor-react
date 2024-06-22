@@ -1,5 +1,5 @@
 package io.github.alexoooo.sample.ktorreact
 
 
-const val rootHtmlElementId = "root"
+const val rootHtmlElementId: String = "root"
 

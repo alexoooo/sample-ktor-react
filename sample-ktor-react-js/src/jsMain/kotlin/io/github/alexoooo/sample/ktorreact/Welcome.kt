@@ -41,7 +41,7 @@ val Welcome = FC<WelcomeProps> { props ->
         CardContent {
             Typography {
                 variant = TypographyVariant.h5
-                +"Foo bar baz"
+                +"Foo"
             }
         }
     }
