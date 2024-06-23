@@ -11,14 +11,13 @@ plugins {
 
 
 kotlin {
-    compilerOptions {
-        jvmTarget.set(JvmTarget.fromTarget(jvmTargetVersion))
-    }
     jvmToolchain {
         languageVersion.set(JavaLanguageVersion.of(jvmToolchainVersion))
     }
+    compilerOptions {
+        jvmTarget.set(JvmTarget.fromTarget(jvmTargetVersion))
+    }
 }
-
 
 
 tasks.compileJava {
@@ -60,16 +59,3 @@ tasks.withType<ProcessResources> {
         into("static")
     }
 }
-
-
-tasks.named("compileKotlin", org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask::class.java) {
-    compilerOptions {
-        freeCompilerArgs = listOf("-Xjsr305=strict")
-    }
-}
-//tasks.withType<KotlinCompile> {
-//    kotlinOptions {
-//        freeCompilerArgs = listOf("-Xjsr305=strict")
-//        jvmTarget = jvmTargetVersion
-//    }
-//}
