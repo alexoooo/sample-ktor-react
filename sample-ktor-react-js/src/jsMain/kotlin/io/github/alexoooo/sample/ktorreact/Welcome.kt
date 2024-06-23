@@ -6,7 +6,6 @@ import mui.material.*
 import mui.material.styles.TypographyVariant
 import mui.system.sx
 import react.*
-import web.html.InputType
 import react.dom.html.ReactHTML.br
 import react.dom.html.ReactHTML.button
 import react.dom.html.ReactHTML.div
@@ -19,6 +18,7 @@ import web.cssom.rgb
 import web.html.HTMLElement
 import web.html.HTMLInputElement
 import web.html.HTMLTextAreaElement
+import web.html.InputType
 
 
 external interface WelcomeProps : Props {
@@ -41,7 +41,7 @@ val Welcome = FC<WelcomeProps> { props ->
         CardContent {
             Typography {
                 variant = TypographyVariant.h5
-                +"Foo"
+                +"Test"
             }
         }
     }

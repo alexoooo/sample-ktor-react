@@ -30,28 +30,25 @@ kotlin {
                     Mode.PRODUCTION
                 }
 
-            commonWebpackConfig(Action {
+            commonWebpackConfig {
                 mode = webpackMode
-            })
+            }
         }
     }
 
     sourceSets {
-        val jsMain by getting {
-            dependencies {
-                implementation(project(":sample-ktor-react-common"))
+        jsMain.dependencies {
+            implementation(kotlin("stdlib-js"))
+            implementation(project(":sample-ktor-react-common"))
 
-                implementation("org.jetbrains.kotlin-wrappers:kotlin-react:$kotlinReactVersion")
-                implementation("org.jetbrains.kotlin-wrappers:kotlin-react-dom:$kotlinReactDomVersion")
-                implementation("org.jetbrains.kotlin-wrappers:kotlin-emotion:$kotlinEmotionVersion")
-                implementation("org.jetbrains.kotlin-wrappers:kotlin-mui-material:$kotlinMuiMaterialVersion")
-            }
+            implementation("org.jetbrains.kotlin-wrappers:kotlin-react:$kotlinReactVersion")
+            implementation("org.jetbrains.kotlin-wrappers:kotlin-react-dom:$kotlinReactDomVersion")
+            implementation("org.jetbrains.kotlin-wrappers:kotlin-emotion:$kotlinEmotionVersion")
+            implementation("org.jetbrains.kotlin-wrappers:kotlin-mui-material:$kotlinMuiMaterialVersion")
         }
 
-        val jsTest by getting {
-            dependencies {
-                implementation(kotlin("test"))
-            }
+        jsTest.dependencies {
+            implementation(kotlin("test"))
         }
     }
 }

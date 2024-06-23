@@ -1,7 +1,6 @@
 @file:Suppress("UnstableApiUsage")
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpack
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 
 plugins {
@@ -31,11 +30,9 @@ application {
 
 
 dependencies {
-    implementation("ch.qos.logback:logback-classic:$logbackVersion")
-
     implementation(project(":sample-ktor-react-common"))
 
-
+    implementation("ch.qos.logback:logback-classic:$logbackVersion")
     implementation("org.jetbrains.kotlinx:kotlinx-html-jvm:$kotlinxHtmlVersion")
     implementation("io.ktor:ktor-server-netty:$ktorVersion")
     implementation("io.ktor:ktor-server-html-builder-jvm:$ktorVersion")
