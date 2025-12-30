@@ -1,7 +1,7 @@
 package io.github.alexoooo.sample.ktorreact
 
 import emotion.react.css
-import js.objects.jso
+import js.objects.unsafeJso
 import mui.material.*
 import mui.material.styles.TypographyVariant
 import mui.system.sx
@@ -19,6 +19,7 @@ import web.html.HTMLElement
 import web.html.HTMLInputElement
 import web.html.HTMLTextAreaElement
 import web.html.InputType
+import web.html.text
 
 
 external interface WelcomeProps : Props {
@@ -33,7 +34,7 @@ val Welcome = FC<WelcomeProps> { props ->
     var name by useState(props.name)
 
     Card {
-        style = jso {
+        style = unsafeJso {
             backgroundColor = NamedColor.yellow
             margin = 1.em
         }

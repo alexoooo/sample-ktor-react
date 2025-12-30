@@ -26,7 +26,9 @@ kotlin {
     }
 
     sourceSets {
-        commonMain.dependencies {}
+        commonMain.dependencies {
+            implementation(kotlin("test"))
+        }
 
         jsMain.dependencies {
             // NB: stdlib should be included automatically, not sure why it's necessary to do it explicitly here (Kotlin 2.0.0 / Gradle 8.8)

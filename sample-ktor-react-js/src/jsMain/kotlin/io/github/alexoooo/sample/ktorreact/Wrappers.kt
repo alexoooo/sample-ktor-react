@@ -1,16 +1,16 @@
 package io.github.alexoooo.sample.ktorreact
 
-import js.objects.jso
+import js.objects.unsafeJso
 import react.*
 
 
 abstract class RComponent<P : Props, S : State> : Component<P, S> {
     constructor() : super() {
-        state = jso { init() }
+        state = unsafeJso { init() }
     }
 
     constructor(props: P) : super(props) {
-        state = jso { init(props) }
+        state = unsafeJso { init(props) }
     }
 
     open fun S.init() {}
@@ -24,7 +24,7 @@ abstract class RComponent<P : Props, S : State> : Component<P, S> {
 }
 
 fun <S : State> Component<*, S>.setState(buildState: S.() -> Unit) {
-    val partialState: S = jso {
+    val partialState: S = unsafeJso {
         buildState()
     }
     setState(partialState)
@@ -33,11 +33,11 @@ fun <S : State> Component<*, S>.setState(buildState: S.() -> Unit) {
 
 abstract class RPureComponent<P : Props, S : State> : PureComponent<P, S> {
     constructor() : super() {
-        state = jso { init() }
+        state = unsafeJso { init() }
     }
 
     constructor(props: P) : super(props) {
-        state = jso { init(props) }
+        state = unsafeJso { init(props) }
     }
 
     open fun S.init() {}
@@ -52,7 +52,7 @@ abstract class RPureComponent<P : Props, S : State> : PureComponent<P, S> {
 
 
 fun <S : State> PureComponent<*, S>.setState(buildState: S.() -> Unit) {
-    val partialState: S = jso {
+    val partialState: S = unsafeJso {
         buildState()
     }
     setState(partialState)
