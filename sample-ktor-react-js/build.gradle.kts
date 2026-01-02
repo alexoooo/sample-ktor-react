@@ -44,7 +44,6 @@ kotlin {
             implementation(kotlinWrappers.react)
             implementation(kotlinWrappers.reactLegacy)
             implementation(kotlinWrappers.reactDom)
-            implementation(kotlinWrappers.reactDomLegacy)
             implementation(kotlinWrappers.emotion.styled)
             implementation(kotlinWrappers.mui.material)
         }
